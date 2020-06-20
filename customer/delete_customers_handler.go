@@ -10,7 +10,7 @@ import (
 func deleteCustomersHandler(c *gin.Context) {
 	id := c.Param("id")
 
-	stmt, err := database.Conn().Prepare("DELETE FROM todos WHERE id = $1")
+	stmt, err := database.Conn().Prepare("DELETE FROM customers WHERE id = $1")
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, err)
 		return
@@ -21,5 +21,5 @@ func deleteCustomersHandler(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, "customer deleted")
+	c.JSON(http.StatusOK, gin.H{"message": "customer deleted"})
 }

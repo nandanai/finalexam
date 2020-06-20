@@ -17,7 +17,7 @@ func updateCustomersHandler(c *gin.Context) {
 
 	row := stmt.QueryRow(id)
 
-	customer := &Customer{}
+	customer := Customer{}
 
 	err = row.Scan(&customer.ID, &customer.Name, &customer.Email, &customer.Status)
 	if err != nil {
@@ -25,7 +25,7 @@ func updateCustomersHandler(c *gin.Context) {
 		return
 	}
 
-	if err := c.ShouldBindJSON(customer); err != nil {
+	if err := c.ShouldBindJSON(&customer); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
